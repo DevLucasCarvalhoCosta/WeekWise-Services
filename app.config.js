@@ -5,10 +5,10 @@ export default {
     name: "Expo Firebase Starter",
     slug: "expo-firebase",
     privacy: "public",
-    platforms: ["ios", "android"],
+    platforms: ["ios", "android", "web"],
     version: "0.19.0",
     orientation: "portrait",
-    icon: "./assets/flame.png",
+    icon: "./assets/logo.png",
     splash: {
       image: "./assets/splash.png",
       resizeMode: "cover",

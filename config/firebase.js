@@ -1,9 +1,10 @@
-import { initializeApp } from "firebase/app";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
-import Constants from "expo-constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { initializeApp } from 'firebase/app';
+import { getAuth, initializeAuth, browserLocalPersistence } from 'firebase/auth';
+import Constants from 'expo-constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
 
-// add firebase config
+// Adicionar configuração do Firebase
 const firebaseConfig = {
   apiKey: Constants.expoConfig?.extra?.apiKey,
   authDomain: Constants.expoConfig?.extra?.authDomain,
@@ -13,12 +14,20 @@ const firebaseConfig = {
   appId: Constants.expoConfig?.extra?.appId,
 };
 
-// initialize firebase
+// Inicializar o Firebase
 const app = initializeApp(firebaseConfig);
 
-// initialize auth; only for native platforms (Android and iOS)
-const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-});
+let auth;
+
+if (Platform.OS === 'web') {
+  // Inicializar auth para web
+  auth = getAuth(app);
+  auth.setPersistence(browserLocalPersistence);
+} else {
+  // Inicializar auth para React Native
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+  });
+}
 
 export { auth };

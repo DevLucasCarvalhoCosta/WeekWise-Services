@@ -24,7 +24,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
   return (
     <View isSafe style={styles.container}>
       <View style={styles.innerContainer}>
-        <Text style={styles.screenTitle}>Reset your password</Text>
+        <Text style={styles.screenTitle}>Resetar sua Senha</Text>
       </View>
       <Formik
         initialValues={{ email: "" }}
@@ -59,7 +59,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
             ) : null}
             {/* Password Reset Send Email  button */}
             <Button style={styles.button} onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Send Reset Email</Text>
+              <Text style={styles.buttonText}>Enviar Email de Reset</Text>
             </Button>
           </>
         )}

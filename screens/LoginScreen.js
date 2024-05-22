@@ -27,7 +27,7 @@ export const LoginScreen = ({ navigation }) => {
           {/* LogoContainer: consist app logo and screen title */}
           <View style={styles.logoContainer}>
             <Logo uri={Images.logo} />
-            <Text style={styles.screenTitle}>Welcome back!</Text>
+            <Text style={styles.screenTitle}>Bem vindo a WeekWise</Text>
           </View>
           <Formik
             initialValues={{
@@ -50,7 +50,7 @@ export const LoginScreen = ({ navigation }) => {
                 <TextInput
                   name="email"
                   leftIconName="email"
-                  placeholder="Enter email"
+                  placeholder="Entrar com Email"
                   autoCapitalize="none"
                   keyboardType="email-address"
                   textContentType="emailAddress"
@@ -66,7 +66,7 @@ export const LoginScreen = ({ navigation }) => {
                 <TextInput
                   name="password"
                   leftIconName="key-variant"
-                  placeholder="Enter password"
+                  placeholder="Senha"
                   autoCapitalize="none"
                   autoCorrect={false}
                   secureTextEntry={passwordVisibility}
@@ -87,7 +87,7 @@ export const LoginScreen = ({ navigation }) => {
                 ) : null}
                 {/* Login button */}
                 <Button style={styles.button} onPress={handleSubmit}>
-                  <Text style={styles.buttonText}>Login</Text>
+                  <Text style={styles.buttonText}>Entrar</Text>
                 </Button>
               </>
             )}
@@ -96,13 +96,13 @@ export const LoginScreen = ({ navigation }) => {
           <Button
             style={styles.borderlessButtonContainer}
             borderless
-            title={"Create a new account?"}
+            title={"Criar uma nova Conta?"}
             onPress={() => navigation.navigate("Signup")}
           />
           <Button
             style={styles.borderlessButtonContainer}
             borderless
-            title={"Forgot Password"}
+            title={"Esqueceu sua Senha"}
             onPress={() => navigation.navigate("ForgotPassword")}
           />
         </KeyboardAwareScrollView>
@@ -110,7 +110,7 @@ export const LoginScreen = ({ navigation }) => {
 
       {/* App info footer */}
       <View style={styles.footer}>
-        <Text style={styles.footerText}>Expo Firebase Starter App</Text>
+        <Text style={styles.footerText}>WeekWise Enterprise</Text>
       </View>
     </>
   );
@@ -140,14 +140,14 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 14,
     fontWeight: "700",
-    color: Colors.orange,
+    color: Colors.yellow,
   },
   button: {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
     marginTop: 8,
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.black,
     padding: 10,
     borderRadius: 8,
   },
