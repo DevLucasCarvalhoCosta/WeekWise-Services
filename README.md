@@ -44,39 +44,39 @@ Este é um aplicativo mobile desenvolvido em React Native que permite a criaçã
     - **Atualize o arquivo src/config/firebase.js com suas credenciais do Firebase:**
   
     ```bash
-import { initializeApp } from 'firebase/app';
-import { getAuth, initializeAuth, browserLocalPersistence, getReactNativePersistence } from 'firebase/auth';
-import { getFirestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
-
-// Configuração do Firebase
-const firebaseConfig = {
-  apiKey: "sua-api-key",
-  authDomain: "seu-projeto.firebaseapp.com",
-  projectId: "seu-projeto",
-  storageBucket: "seu-projeto.appspot.com",
-  messagingSenderId: "seu-sender-id",
-  appId: "seu-app-id",
-  measurementId: "seu-measurement-id"
-};
-
-// Inicializar o Firebase
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-
-// Inicializar auth para web ou React Native
-let auth;
-if (Platform.OS === 'web') {
-  auth = getAuth(app);
-  auth.setPersistence(browserLocalPersistence);
-} else {
-  auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
-}
-
-export { auth, firestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc }; // Exporte todas as funções necessárias
+   import { initializeApp } from 'firebase/app';
+   import { getAuth, initializeAuth, browserLocalPersistence, getReactNativePersistence } from 'firebase/auth';
+   import { getFirestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
+   import AsyncStorage from '@react-native-async-storage/async-storage';
+   import { Platform } from 'react-native';
+   
+   // Configuração do Firebase
+   const firebaseConfig = {
+     apiKey: "sua-api-key",
+     authDomain: "seu-projeto.firebaseapp.com",
+     projectId: "seu-projeto",
+     storageBucket: "seu-projeto.appspot.com",
+     messagingSenderId: "seu-sender-id",
+     appId: "seu-app-id",
+     measurementId: "seu-measurement-id"
+   };
+   
+   // Inicializar o Firebase
+   const app = initializeApp(firebaseConfig);
+   const firestore = getFirestore(app);
+   
+   // Inicializar auth para web ou React Native
+   let auth;
+   if (Platform.OS === 'web') {
+     auth = getAuth(app);
+     auth.setPersistence(browserLocalPersistence);
+   } else {
+     auth = initializeAuth(app, {
+       persistence: getReactNativePersistence(AsyncStorage),
+     });
+   }
+   
+   export { auth, firestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc }; // Exporte todas as funções necessárias
 
     ```
 
