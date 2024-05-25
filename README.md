@@ -81,9 +81,9 @@ Este é um aplicativo mobile desenvolvido em React Native que permite a criaçã
     ```
 
   ## Inicie o aplicativo:
-     ```bash
+     
      npm expo start
-     ```
+     
 
    ## Uso
 
