@@ -1,4 +1,4 @@
-# Serviço Autenticador Firebase
+# WeekWise Service
 
 ![Supports Expo iOS](https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff)
 ![Supports Expo Android](https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff)
@@ -125,3 +125,11 @@ Este é um aplicativo mobile desenvolvido em React Native que permite a criaçã
 ### Excluir Serviço
 
 - Na lista de serviços, clique no ícone de lixeira para excluir o serviço.
+
+  ### Video Funcionamento
+
+  
+
+https://github.com/Lucaspk91/WeekWise-Services/assets/95451120/d2afabb6-13ed-434a-bf0f-937fc7bbe836
+
+
