@@ -2,7 +2,6 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { signOut } from "firebase/auth";
-
 import { auth } from "../config";
 
 export const HomeScreen = () => {
@@ -10,7 +9,10 @@ export const HomeScreen = () => {
 
   const handleLogout = () => {
     signOut(auth).catch((error) => console.log("Error logging out: ", error));
-    
+  };
+
+  const navigateToServiceList = () => {
+    navigation.navigate('ListServices'); // Altere para o nome da sua tela de listagem de serviços
   };
 
   return (
@@ -23,14 +25,12 @@ export const HomeScreen = () => {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.card}
-        onPress={() => navigation.navigate('ExecuteService')}
+        onPress={navigateToServiceList} // Adiciona a função para navegar para a lista de serviços
       >
-        <Text style={styles.cardText}>Executar Serviço</Text>
+        <Text style={styles.cardText}>Listar Serviços</Text>
       </TouchableOpacity>
       <Button title="Sair" onPress={handleLogout} />
     </View>
-    
-
   );
 };
 
