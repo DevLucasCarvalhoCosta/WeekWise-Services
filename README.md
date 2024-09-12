@@ -26,8 +26,8 @@ Este é um aplicativo mobile desenvolvido em React Native que permite a criaçã
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/DevLucasCarvalhoCosta/WeekWise-Services.git
+   cd WeekWise-Services
 2. **Instale as dependências:**
    ```bash
    npm install
