@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import { View, TextInput, Logo, Button, FormErrorMessage } from "../components";
@@ -14,12 +14,28 @@ export const LoginScreen = ({ navigation }) => {
   const { passwordVisibility, handlePasswordVisibility, rightIcon } =
     useTogglePasswordVisibility();
 
+  // Função para login com Google
+  const handleGoogleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log("Usuário logado com Google:", user);
+      // Redirecionar para a tela principal
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error("Erro de autenticação Google: ", error);
+      setErrorState(error.message);
+    }
+  };
+
   const handleLogin = (values) => {
     const { email, password } = values;
     signInWithEmailAndPassword(auth, email, password).catch((error) =>
       setErrorState(error.message)
     );
   };
+
   return (
     <>
       <View isSafe style={styles.container}>
@@ -89,6 +105,11 @@ export const LoginScreen = ({ navigation }) => {
                 <Button style={styles.button} onPress={handleSubmit}>
                   <Text style={styles.buttonText}>Entrar</Text>
                 </Button>
+
+                {/* Google Login Button */}
+                <Button style={styles.googleButton} onPress={handleGoogleLogin}>
+                  <Text style={styles.googleButtonText}>Entrar com Google</Text>
+                </Button>
               </>
             )}
           </Formik>
@@ -152,6 +173,17 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonText: {
+    fontSize: 20,
+    color: Colors.white,
+    fontWeight: "700",
+  },
+  googleButton: {
+    marginTop: 16,
+    backgroundColor: Colors.blue,
+    padding: 10,
+    borderRadius: 8,
+  },
+  googleButtonText: {
     fontSize: 20,
     color: Colors.white,
     fontWeight: "700",

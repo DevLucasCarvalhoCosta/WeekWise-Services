@@ -3,9 +3,11 @@ import { Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { doc, setDoc } from "../config/firebase";
 
 import { View, TextInput, Logo, Button, FormErrorMessage } from "../components";
-import { Images, Colors, auth } from "../config";
+import { Images, Colors } from "../config"; 
+import { auth, firestore } from "../config/firebase"; 
 import { useTogglePasswordVisibility } from "../hooks";
 import { signupValidationSchema } from "../utils";
 
@@ -22,11 +24,31 @@ export const SignupScreen = ({ navigation }) => {
   } = useTogglePasswordVisibility();
 
   const handleSignup = async (values) => {
-    const { email, password } = values;
+    const { nome, telefone, email, password } = values;
 
-    createUserWithEmailAndPassword(auth, email, password).catch((error) =>
-      setErrorState(error.message)
-    );
+    try {
+      // Criar o usuário com email e senha
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      // Salvar as informações adicionais do usuário no Firestore
+      await setDoc(doc(firestore, "users", user.uid), {
+        id: user.uid,
+        nome: nome,
+        telefone: telefone,
+        email: email,
+        role: "client", // Role padrão definida como 'client'
+      });
+
+      console.log("Usuário cadastrado com sucesso!");
+    } catch (error) {
+      setErrorState(error.message);
+      console.log("Erro ao criar usuário:", error.message);
+    }
   };
 
   return (
@@ -35,11 +57,13 @@ export const SignupScreen = ({ navigation }) => {
         {/* LogoContainer: consist app logo and screen title */}
         <View style={styles.logoContainer}>
           <Logo uri={Images.logo} />
-          <Text style={styles.screenTitle}>Create a new account!</Text>
+          <Text style={styles.screenTitle}>Criar uma nova conta!</Text>
         </View>
         {/* Formik Wrapper */}
         <Formik
           initialValues={{
+            nome: "",
+            telefone: "",
             email: "",
             password: "",
             confirmPassword: "",
@@ -56,7 +80,32 @@ export const SignupScreen = ({ navigation }) => {
             handleBlur,
           }) => (
             <>
-              {/* Input fields */}
+              {/* Nome */}
+              <TextInput
+                name="nome"
+                placeholder="Nome Completo"
+                autoCapitalize="words"
+                value={values.nome}
+                onChangeText={handleChange("nome")}
+                onBlur={handleBlur("nome")}
+              />
+              <FormErrorMessage error={errors.nome} visible={touched.nome} />
+
+              {/* Telefone */}
+              <TextInput
+                name="telefone"
+                placeholder="Telefone"
+                keyboardType="phone-pad"
+                value={values.telefone}
+                onChangeText={handleChange("telefone")}
+                onBlur={handleBlur("telefone")}
+              />
+              <FormErrorMessage
+                error={errors.telefone}
+                visible={touched.telefone}
+              />
+
+              {/* Email */}
               <TextInput
                 name="email"
                 leftIconName="email"
@@ -70,6 +119,8 @@ export const SignupScreen = ({ navigation }) => {
                 onBlur={handleBlur("email")}
               />
               <FormErrorMessage error={errors.email} visible={touched.email} />
+
+              {/* Senha */}
               <TextInput
                 name="password"
                 leftIconName="key-variant"
@@ -88,6 +139,8 @@ export const SignupScreen = ({ navigation }) => {
                 error={errors.password}
                 visible={touched.password}
               />
+
+              {/* Confirmar Senha */}
               <TextInput
                 name="confirmPassword"
                 leftIconName="key-variant"
@@ -106,18 +159,21 @@ export const SignupScreen = ({ navigation }) => {
                 error={errors.confirmPassword}
                 visible={touched.confirmPassword}
               />
-              {/* Display Screen Error Messages */}
+
+              {/* Exibir mensagem de erro geral */}
               {errorState !== "" ? (
                 <FormErrorMessage error={errorState} visible={true} />
               ) : null}
-              {/* Signup button */}
+
+              {/* Botão de criar conta */}
               <Button style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Criar Conta</Text>
               </Button>
             </>
           )}
         </Formik>
-        {/* Button to navigate to Login screen */}
+
+        {/* Botão para navegar para a tela de Login */}
         <Button
           style={styles.borderlessButtonContainer}
           borderless

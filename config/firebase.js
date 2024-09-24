@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, initializeAuth, browserLocalPersistence, getReactNativePersistence } from 'firebase/auth';
-import { getFirestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc } from 'firebase/firestore';
+import { getAuth, GoogleAuthProvider, initializeAuth, browserLocalPersistence, getReactNativePersistence } from 'firebase/auth';
+import { getFirestore, collection, addDoc, serverTimestamp, getDocs, getDoc, deleteDoc, updateDoc, doc, setDoc } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
@@ -30,4 +30,4 @@ if (Platform.OS === 'web') {
   });
 }
 
-export { auth, firestore, collection, addDoc, serverTimestamp, getDocs, deleteDoc, updateDoc, doc }; // Exporte todas as funções necessárias
+export { auth, firestore, GoogleAuthProvider, collection, addDoc, serverTimestamp, getDocs, getDoc, deleteDoc, updateDoc, doc, setDoc }; 
